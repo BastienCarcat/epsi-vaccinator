@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Vaccinator.Models.Injection>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Liste des injections</h1>
+
+<p>
+    <a asp-action="Create">Ajouter une injection</a>
+</p>
+@using (Html.BeginForm())
+{
+<p>
+    <label>Rechercher la personne : </label>
+        @Html.DropDownList("SearchedPerson", (SelectList)ViewData["ListeDesPersonnes"], "Selectionnez une personne", new { @class = "form-control" })
+    <br />
+    <input type="submit" value="Rechercher" />
+</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Personne.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Personne.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vaccin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRappel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Personne.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Personne.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vaccin.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRappel)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Détail</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Vaccinator.Models.Personne>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Liste des personnes</h1>
+
+<p>
+    <a asp-action="Create">Ajouter une nouvelle personne</a>
+</p>
+@using (Html.BeginForm())
+{
+<p>
+    <h5>Filtrer la liste :</h5>
+    <label>Personnes non-vaccinées par le vaccin : </label>
+    @Html.DropDownList("SearchedVaccin", (SelectList)ViewData["ListeDesVaccins"], "Selectionnez un vaccin", new { @class = "form-control" })
+    <br />
+    Personnes non-vaccinées dans l'année en cours : @Html.CheckBox("CurrentYear")
+    <br />
+    <br />
+    Personnes en retard d'un rappel : @Html.CheckBox("Late")
+    <br />
+    <br />
+    <input type="submit" value="Rechercher" />
+</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateNaissance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Statut)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateNaissance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statut)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Détail</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
